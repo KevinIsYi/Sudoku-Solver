@@ -25,7 +25,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!sudoku.isValidSudoku()) {
                 ui.fireAlert("This board is not valid");
             }
+            else {
+                startButtonSelector.disabled = true;
+                randomButtonSelector.disabled = true;
+            }
         }
-
     });
 });
