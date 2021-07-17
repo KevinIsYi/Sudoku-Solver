@@ -4,7 +4,7 @@ export class UI {
     constructor() { };
 
     generateGrid() {
-        for (let y = 8; y >= 0; --y) {
+        for (let y = 0; y < 9; ++y) {
             const row = document.createElement('tr');
             for (let x = 0; x < 9; ++x) {
                 const tableData = document.createElement('td');
@@ -13,7 +13,7 @@ export class UI {
                 if (x % 3 === 0 && x !== 0) {
                     tableData.classList.add('border-left');
                 }
-                if (y % 3 === 0 && y !== 0) {
+                if (y % 3 === 2 && y !== 8) {
                     tableData.classList.add('border-bottom');
                 }
 
@@ -26,5 +26,16 @@ export class UI {
 
             tableSelector.appendChild(row);
         }
-    };
+    }
+
+    fillGridWithValues(board) {
+        for (let y = 0; y < 9; ++y) {
+            for (let x = 0; x < 9; ++x) {
+                if (board[y][x] !== 0) {
+                    const selector = document.getElementById(`input-${y},${x}`);
+                    selector.value = board[y][x];
+                }
+            }
+        }
+    }
 }

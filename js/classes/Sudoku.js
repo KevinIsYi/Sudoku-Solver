@@ -37,6 +37,20 @@ export class Sudoku {
         }
     }
 
+    removeDigits(nDigits) {
+        let count = nDigits;
+
+        while (count !== 0) {
+            const row = (Math.ceil(Math.random() * 100)) % 9;
+            const col = (Math.ceil(Math.random() * 100)) % 9;
+
+            if (this.grid[row][col] !== 0) {
+                this.grid[row][col] = 0;
+                --count;
+            }
+        }
+    }
+
     swapVertical(columnA, columnB) {
         for (let i = 0; i < 9; ++i) {
             const aux = this.grid[i][columnA];
