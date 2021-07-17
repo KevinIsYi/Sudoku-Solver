@@ -15,10 +15,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const board = sudoku.getSudokuBoard();
         ui.fillGridWithValues(board);
-
     });
 
     startButtonSelector.addEventListener('click', () => {
-        console.log("Start");
+        const { grid, error } = ui.validateGrid();
+
+        if (!error) {
+            sudoku.setSudokuBoard(grid);
+            if (!sudoku.isValidSudoku()) {
+                ui.fireAlert("This board is not valid");
+            }
+        }
+
     });
 });

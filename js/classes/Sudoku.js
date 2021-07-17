@@ -18,11 +18,15 @@ export class Sudoku {
         return this.grid;
     }
 
+    setSudokuBoard(board) {
+        this.grid = board;
+    }
+
     copyGrid() {
         this.grid = [];
-        for (let i = 0 ; i < 9 ; ++i) {
+        for (let i = 0; i < 9; ++i) {
             this.grid[i] = [];
-            for (let j = 0 ; j < 9 ; ++j) {
+            for (let j = 0; j < 9; ++j) {
                 this.grid[i][j] = this.backupGrid[i][j];
             }
         }
@@ -103,7 +107,9 @@ export class Sudoku {
                 if (seenNumbers.has(this.grid[i + row][j + col])) {
                     return false;
                 }
-                seenNumbers.add(this.grid[i + row][j + col]);
+                if (this.grid[i + row][j + col] !== 0) {
+                    seenNumbers.add(this.grid[i + row][j + col]);
+                }
             }
         }
         return true;
@@ -117,15 +123,18 @@ export class Sudoku {
                 if (
                     setRows.has(this.grid[i][j]) ||
                     setColumns.has(this.grid[j][i]) ||
-                    this.grid[i][j] <= 0 ||
+                    this.grid[i][j] < 0 ||
                     this.grid[i][j] >= 10
                 ) {
                     return false;
                 }
 
-                setRows.add(this.grid[i][j]);
-                setColumns.add(this.grid[j][i]);
-
+                if (this.grid[i][j] !== 0) {
+                    setRows.add(this.grid[i][j]);
+                }
+                if (this.grid[j][i] !== 0) {
+                    setColumns.add(this.grid[j][i]);
+                }
             }
         }
         return true;

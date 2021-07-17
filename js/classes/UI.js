@@ -1,8 +1,6 @@
 import { alertSelector, tableSelector } from "../selectors/selectors.js";
 
 export class UI {
-    constructor() { };
-
     generateGrid() {
         for (let y = 0; y < 9; ++y) {
             const row = document.createElement('tr');
@@ -37,7 +35,7 @@ export class UI {
         }
     }
 
-    alertMessage(message) {
+    fireAlert(message) {
         alertSelector.textContent = message;
         alertSelector.animate([
             {
@@ -64,5 +62,31 @@ export class UI {
         ], {
             duration: 3000,
         });
+    }
+
+    validateGrid() {
+        const grid = [];
+        let error = false;
+
+        for (let i = 0; i < 9 && !error; ++i) {
+            const gridRow = [];
+            for (let j = 0; j < 9; ++j) {
+                const { value } = document.getElementById(`input-${i},${j}`);
+
+                if (isNaN(value)) {
+                    this.fireAlert('Write numbers only');
+                    error = true;
+                    break;
+                }
+
+                gridRow.push(Number(value));
+            }
+            grid.push(gridRow);
+        }
+
+        return {
+            grid,
+            error
+        };
     }
 }
