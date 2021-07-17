@@ -1,6 +1,7 @@
 export class Sudoku {
     constructor() {
-        this.grid = [
+        this.grid;
+        this.backupGrid = [
             [3, 2, 9, 6, 5, 7, 8, 4, 1],
             [7, 4, 5, 8, 3, 1, 2, 9, 6],
             [6, 1, 8, 2, 4, 9, 3, 7, 5],
@@ -17,7 +18,20 @@ export class Sudoku {
         return this.grid;
     }
 
+    copyGrid() {
+        this.grid = [];
+        for (let i = 0 ; i < 9 ; ++i) {
+            this.grid[i] = [];
+            for (let j = 0 ; j < 9 ; ++j) {
+                this.grid[i][j] = this.backupGrid[i][j];
+            }
+        }
+    }
+
     randomizeGrid() {
+
+        this.copyGrid();
+
         let numberOfChanges = Math.floor(Math.random() * (100 - 85)) + 85;
 
         while (numberOfChanges > 0) {

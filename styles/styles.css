@@ -85,3 +85,19 @@ input {
     border: 3px solid #FFACAC;
     margin-right: 15px;
 }
+
+.alert {
+    background-color: #FF5555;
+    border-radius: 5px;
+    bottom: -150px;
+    font-size: 25px;
+    font-weight: bold;
+    left: 50%;
+    max-width: 350px;
+    padding: 10px;
+    position: fixed;
+    text-align: center;
+    transform: translateX(-50%);
+    transition: all ease-in 0.3s;
+    width: 95%;
+}

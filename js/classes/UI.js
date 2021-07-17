@@ -1,4 +1,4 @@
-import { tableSelector } from "../selectors/selectors.js";
+import { alertSelector, tableSelector } from "../selectors/selectors.js";
 
 export class UI {
     constructor() { };
@@ -31,11 +31,38 @@ export class UI {
     fillGridWithValues(board) {
         for (let y = 0; y < 9; ++y) {
             for (let x = 0; x < 9; ++x) {
-                if (board[y][x] !== 0) {
-                    const selector = document.getElementById(`input-${y},${x}`);
-                    selector.value = board[y][x];
-                }
+                const selector = document.getElementById(`input-${y},${x}`);
+                selector.value = board[y][x] !== 0 ? board[y][x] : '';
             }
         }
+    }
+
+    alertMessage(message) {
+        alertSelector.textContent = message;
+        alertSelector.animate([
+            {
+                bottom: '0px',
+            },
+            {
+                bottom: '50px',
+            },
+            {
+                bottom: '50px',
+            },
+            {
+                bottom: '50px',
+            },
+            {
+                bottom: '50px',
+            },
+            {
+                bottom: '0px'
+            },
+            {
+                bottom: '-150px'
+            }
+        ], {
+            duration: 3000,
+        });
     }
 }
