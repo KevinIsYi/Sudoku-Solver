@@ -30,6 +30,7 @@ tr {
 
 td {
     border: solid 1px black;
+    transition: all ease-in 0.3s;
 }
 
 input {

@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             else {
                 startButtonSelector.disabled = true;
                 randomButtonSelector.disabled = true;
+                sudoku.solveSudoku();
             }
         }
     });
