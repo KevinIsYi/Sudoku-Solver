@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ui.fillGridWithValues(board);
     });
 
-    startButtonSelector.addEventListener('click', () => {
+    startButtonSelector.addEventListener('click', async () => {
         const { grid, error } = ui.validateGrid();
 
         if (!error) {
@@ -29,10 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 startButtonSelector.disabled = true;
                 randomButtonSelector.disabled = true;
                 sudoku.solveSudoku();
-                ui.unableInputs();
+                ui.changeInputsStatus(true);
                 const steps = sudoku.getSteps();
-                console.log(steps);
-                ui.showSudokuSolvingAnimation(steps);
+                await ui.showSudokuSolvingAnimation(steps);
+
+                startButtonSelector.disabled = false;
+                randomButtonSelector.disabled = false;
             }
         }
     });

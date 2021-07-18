@@ -21,6 +21,7 @@ button:hover {
 
 table {
     border: solid 5px black;
+    transition: all ease-in 0.3s;
 }
 
 tr {
@@ -108,4 +109,8 @@ input {
 
 .td-success {
     border: solid 3px #4EFF25;
+}
+
+.table-success {
+    border: solid 5px #4EFF25;
 }

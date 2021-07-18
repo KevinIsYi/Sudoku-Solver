@@ -1,4 +1,4 @@
-import { alertSelector, tableSelector } from "../selectors/selectors.js";
+import { alertSelector, numberStepsSelector, tableContainerSelector, tableSelector } from "../selectors/selectors.js";
 
 export class UI {
     generateGrid() {
@@ -90,11 +90,11 @@ export class UI {
         };
     }
 
-    unableInputs() {
+    changeInputsStatus(disabled) {
         for (let i = 0; i < 9; ++i) {
             for (let j = 0; j < 9; ++j) {
                 const input = document.getElementById(`input-${i},${j}`);
-                input.disabled = true;
+                input.disabled = disabled;
             }
         }
     }
@@ -104,6 +104,7 @@ export class UI {
     }
 
     async showSudokuSolvingAnimation(steps) {
+        let numberOfSteps = steps.length;
 
         for (const step of steps) {
             const { type, value, row, col } = step;
@@ -113,10 +114,17 @@ export class UI {
             inputSelector.value = value;
 
 
+            numberStepsSelector.textContent = --numberOfSteps;
             tableCellSelector.classList.add(`td-${type}`);
-            await this.sleep(50);
+            await this.sleep(35);
             tableCellSelector.classList.remove(`td-${type}`);
         }
 
+        tableContainerSelector.classList.add('table-success');
+        setTimeout(() => {
+            tableContainerSelector.classList.remove('table-success');
+        }, 300);
+
+        this.changeInputsStatus(false);
     }
 }
