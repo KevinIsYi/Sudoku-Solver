@@ -29,6 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 startButtonSelector.disabled = true;
                 randomButtonSelector.disabled = true;
                 sudoku.solveSudoku();
+                ui.unableInputs();
+                const steps = sudoku.getSteps();
+                console.log(steps);
+                ui.showSudokuSolvingAnimation(steps);
             }
         }
     });

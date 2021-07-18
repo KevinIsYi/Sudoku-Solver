@@ -89,4 +89,34 @@ export class UI {
             error
         };
     }
+
+    unableInputs() {
+        for (let i = 0; i < 9; ++i) {
+            for (let j = 0; j < 9; ++j) {
+                const input = document.getElementById(`input-${i},${j}`);
+                input.disabled = true;
+            }
+        }
+    }
+
+    sleep(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+    }
+
+    async showSudokuSolvingAnimation(steps) {
+
+        for (const step of steps) {
+            const { type, value, row, col } = step;
+            const id = `${row},${col}`;
+            const tableCellSelector = document.getElementById(`cell-${id}`);
+            const inputSelector = document.getElementById(`input-${id}`);
+            inputSelector.value = value;
+
+
+            tableCellSelector.classList.add(`td-${type}`);
+            await this.sleep(50);
+            tableCellSelector.classList.remove(`td-${type}`);
+        }
+
+    }
 }

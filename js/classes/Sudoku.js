@@ -12,6 +12,11 @@ export class Sudoku {
             [5, 8, 7, 9, 2, 3, 1, 6, 4],
             [9, 6, 1, 5, 8, 4, 7, 3, 2]
         ];
+        this.steps = [];
+    }
+
+    getSteps() {
+        return this.steps;
     }
 
     getSudokuBoard() {
@@ -141,20 +146,21 @@ export class Sudoku {
     }
 
     solveSudoku() {
+        this.steps = [];
         this.solveSudokuAlgorithm(this.grid, 0, 0);
     }
 
     solveSudokuAlgorithm(grid, row, col) {
-        if (row == 8 && col == 9) {
+        if (row === 8 && col === 9) {
             return true;
         }
 
-        if (col == 9) {
+        if (col === 9) {
             row++;
             col = 0;
         }
 
-        if (grid[row][col] != 0) {
+        if (grid[row][col] !== 0) {
             return this.solveSudokuAlgorithm(grid, row, col + 1);
         }
 
@@ -162,24 +168,38 @@ export class Sudoku {
             if (this.isSafe(grid, row, col, num)) {
                 grid[row][col] = num;
 
+                this.steps.push({
+                    col,
+                    row,
+                    type: 'success',
+                    value: num,
+                });
+
                 if (this.solveSudokuAlgorithm(grid, row, col + 1)) {
                     return true;
                 }
             }
             grid[row][col] = 0;
+
+            this.steps.push({
+                col, 
+                row,
+                type: 'error',
+                value: num,
+            });
         }
         return false;
     }
 
     isSafe(grid, row, col, num) {
         for (let x = 0; x <= 8; x++) {
-            if (grid[row][x] == num) {
+            if (grid[row][x] === num) {
                 return false;
             }
         }
 
         for (let x = 0; x <= 8; x++) {
-            if (grid[x][col] == num) {
+            if (grid[x][col] === num) {
                 return false;
             }
         }
@@ -189,7 +209,7 @@ export class Sudoku {
 
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 3; j++) {
-                if (grid[i + startRow][j + startCol] == num) {
+                if (grid[i + startRow][j + startCol] === num) {
                     return false;
                 }
             }
